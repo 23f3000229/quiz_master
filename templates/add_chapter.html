@@ -1,0 +1,36 @@
+{% extends 'base.html'%}
+{% block title%} Add Chapter- Quiz_Master {%endblock%}
+{% block content %}
+
+<div class="container-fluid row justify-content-center mt-5" <p> Add Chapter </p>
+    
+    <form class="col-6" action={{url_for('add_chapter')}} method="POST" >
+        <div class="mb-3">
+            <label for="chap_name" class="form-label">Chapter Name</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1"  name="chap_name" autocomplete="on">
+        </div>
+        
+        <div class="mb-3">
+            <label for="chap_descr" class="form-label">Chapter Description</label>
+            <input type="text" class="form-control" aria-describedby="passwordHelpBlock" name="chap_description">
+        </div>
+        
+        <div class="mb-3">
+            <label class="subj" for="inlineFormCustomSelectPref">Subject</label>
+            <select class="form-control" id="inlineFormCustomSelectPref" name="subj_id">
+            <option selected>Choose...</option>
+            {% for subject in all_subjects %}
+            <option value="{{subject.subj_id}}">{{subject.subj_name}}</option>
+            {% endfor %}
+            </select>
+        </div>
+    
+        <div class="mt-3">
+            <button type="submit" class="btn btn-primary">Add Chapter</button>
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

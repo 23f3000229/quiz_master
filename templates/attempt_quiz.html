@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="quiz-container">
+    <div class="quiz-header">
+        <h1 class="quiz-title">{{ quiz.quiz_name }}</h1>
+    </div>
+    <div class="quiz-content">
+        <aside class="quiz-sidebar">
+            <h3>Quiz Details</h3>
+            <p><strong>Chapter:</strong> {{ quiz.chapter.chap_name }}</p>
+            <p><strong>Date:</strong> {{ quiz.date_of_quiz.strftime('%Y-%m-%d') }}</p>
+            <p><strong>Time Duration:</strong> {{ quiz.time_duration }} minutes</p>
+        </aside>
+        <main class="quiz-main">
+            <form method="POST" action="{{ url_for('attempt_quiz', quiz_id=quiz.quiz_id) }}">
+                {% for question in questions %}
+                <div class="question-card">
+                    <h3>Question {{ loop.index }}</h3>
+                    <p>{{ question.ques_statment }}</p>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="answer_{{ question.ques_id }}" value="1">
+                            {{ question.option1 }}
+                        </label><br>
+                        <label>
+                            <input type="radio" name="answer_{{ question.ques_id }}" value="2">
+                            {{ question.option2 }}
+                        </label><br>
+                        <label>
+                            <input type="radio" name="answer_{{ question.ques_id }}" value="3">
+                            {{ question.option3 }}
+                        </label><br>
+                        <label>
+                            <input type="radio" name="answer_{{ question.ques_id }}" value="4">
+                            {{ question.option4 }}
+                        </label>
+                    </div>
+                </div>
+                {% endfor %}
+                <button type="submit" class="btn-submit">Submit Quiz</button>
+            </form>
+        </main>
+    </div>
+</div>
+{% endblock %}

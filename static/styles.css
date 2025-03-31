@@ -1,0 +1,401 @@
+.welcome-title {
+    font-size: 32px;
+    font-weight: 600;
+    color: #f8f8f8;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.welcome-subtitle {
+    font-size: 17px;
+    color: #e6dfdf;
+    margin-top: 10px;
+}
+
+/* Search Box Styling */
+.search-box {
+    width: 200px;
+    padding: 8px 12px;
+    border-radius: 21px;
+    border: 1px solid #ccc;
+}
+
+.search-button {
+    background-color: #007BFF;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 21px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-button:hover {
+    background-color: #0056b3;
+}
+
+.card {
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    border-radius: 8px; /* Rounded corners */
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card-subj {
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    border-radius: 8px; /* Rounded corners */
+}
+
+.card-subj:hover {
+    transform: scale(1.01);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card-chap {
+    background-color: rgba(0, 0, 255, 0.00); /* Semi-transparent white */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.27); /* Soft shadow */
+    border-radius: 12px; /* Rounded corners */
+}
+
+.card-chap:hover {
+    transform: scale(1.02);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.33);
+}
+
+.navbar {
+    background-color: rgba(0, 0, 0, 0.7) !important; /* Semi-transparent black */
+    color: #FFFFFF !important; /* White text for readability */
+}
+
+/* Navbar Links Styling */
+.navbar .nav-link, .navbar a, .navbar a:link, .navbar a:visited {
+    color: #FFFFFF !important; /* Force white text */
+}
+
+.navbar .nav-link:hover, .navbar a:hover {
+    color: #FFD700 !important; /* Golden yellow highlight */
+    text-decoration: underline;
+}
+
+button:hover {
+    background-color: #0056b3; /* Darker blue */
+    color: #FFFFFF;
+}
+
+/* General Body Styling */
+body {
+    font-family: Arial, sans-serif;
+    background: url('../static/images/background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+}
+
+/* Quiz Container */
+.quiz-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.72); /* Semi-transparent white */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Quiz Header */
+.quiz-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.quiz-title {
+    font-size: 2.5rem; /* Increased font size */
+    color: #333;
+    font-weight: bold;
+}
+
+/* Quiz Content Layout */
+.quiz-content {
+    display: flex;
+    gap: 20px;
+}
+
+/* Sidebar Styling */
+.quiz-sidebar {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.63); /* Semi-transparent white */
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.quiz-sidebar h3 {
+    font-size: 1.5rem; /* Increased font size */
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.quiz-sidebar p {
+    font-size: 1.2rem; /* Increased font size */
+    margin: 5px 0;
+    color: #555;
+}
+
+/* Main Quiz Area */
+.quiz-main {
+    flex: 3;
+}
+
+/* Question Card Styling */
+.question-card {
+    color:#333;
+    background: rgba(255, 255, 255, 0.72); /* Semi-transparent white */
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.question-card:hover {
+    transform: scale(1.02); /* Slight zoom effect */
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15); /* Stronger shadow on hover */
+}
+
+.question-card h3 {
+    font-size: 1.5rem; /* Increased font size */
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.options label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.2rem; /* Increased font size */
+    color: #555;
+}
+
+/* Submit Button Styling */
+.btn-submit {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.5rem; /* Increased font size */
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-top: 20px;
+}
+
+.btn-submit:hover {
+    background-color: #0056b3; /* Darker blue */
+    transform: scale(1.02); /* Slight zoom effect */
+}
+
+/* Table Container */
+.table-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+
+/* Table Title */
+.table-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Styled Table */
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1rem;
+    text-align: left;
+}
+
+.styled-table thead tr {
+    background-color: #007bff;
+    color: #ffffff;
+    text-align: center;
+    font-weight: bold;
+}
+
+.styled-table th, .styled-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+}
+
+.styled-table tbody tr {
+    background-color: #f9f9f9;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.styled-table tbody td {
+    text-align: center;
+    color: #555;
+}
+
+/* Admin Table Styling */
+.admin-table {
+    background-color: #f9f9f9; /* Light gray background */
+    border: 1px solid #ddd; /* Subtle border */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+
+.admin-table th {
+    background-color: #007bff; /* Blue header */
+    color: #fff; /* White text */
+    font-weight: bold;
+}
+
+.admin-table td {
+    background-color: #ffffff; /* White background for cells */
+    color: #333; /* Dark text */
+    padding: 10px;
+}
+
+.admin-table tr:nth-child(even) td {
+    background-color: #f3f3f3; /* Alternating row color */
+}
+
+.admin-table tr:hover td {
+    background-color: #e9ecef; /* Highlight row on hover */
+}
+
+/* Flash Message Container */
+.flash-container {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    width: 90%;
+    max-width: 600px;
+    text-align: center;
+}
+
+/* Flash Message Styling */
+.flash-message {
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-size: 1.35rem;
+    font-weight: bold;
+    color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    animation: fadeOut 5s forwards;
+}
+
+/* Success Message */
+.flash-message.success {
+    background-color: #28a745; /* Green */
+}
+
+/* Error Message */
+.flash-message.error {
+    background-color: #dc3545; /* Red */
+}
+
+/* Info Message */
+.flash-message.info {
+    background-color: #17a2b8; /* Blue */
+}
+
+/* Warning Message */
+.flash-message.warning {
+    background-color: #ffc107; /* Yellow */
+    color: #333;
+}
+
+/* Fade Out Animation */
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+/* Quiz Results */
+.quiz-feedback {
+    margin-top: 20px;
+}
+
+.quiz-feedback h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.quiz-summary {
+    
+    margin-top: 30px;
+}
+
+.quiz-summary h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.quiz-summary p {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.text-success {
+    color: #38ed62;
+    font-weight: bold;
+}
+
+.text-danger {
+    color: #fa0404;
+    font-weight: bold;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .quiz-content {
+        flex-direction: column;
+    }
+
+    .quiz-sidebar {
+        margin-bottom: 20px;
+    }
+
+    .table-container {
+        padding: 10px;
+    }
+
+    .styled-table th, .styled-table td {
+        font-size: 0.9rem;
+        padding: 8px 10px;
+    }
+}

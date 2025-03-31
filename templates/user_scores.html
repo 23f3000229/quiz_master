@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="table-container">
+    <h2 class="table-title">Your Quiz Scores</h2>
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>Quiz Name</th>
+                <th>Correct Answers</th>
+                <th>Total Questions</th>
+                <th>Your Score</th>
+                <th>Total Quiz Score</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for attempt in attempts %}
+                <tr>
+                    <td>{{ attempt.quiz.quiz_name }}</td>
+                    <td>{{ attempt.score }}</td>
+                    <td>{{ attempt.total_score }}</td>
+                    <td>{{ attempt.score }}</td>
+                    <td>{{ attempt.total_score }}</td>
+                    <td>{{ attempt.attempt_date.strftime('%Y-%m-%d') }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block title %} Questions - Quiz_Master {% endblock %}
+{% block content %}
+
+<div class="container mt-5">
+    <h3 class="text-center">Questions for Quiz: {{ quiz.quiz_name }}</h3>
+    <p class="text-center">Answer the questions below or manage them if you are an admin.</p>
+
+    <form method="POST" action="{{ url_for('submit_answers', quiz_id=quiz.quiz_id) }}">
+        <div class="table-responsive mt-4">
+            <table class="table table-bordered table-hover text-center {% if 'admin' in session.get('user_name', None) %}admin-table{% endif %}">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Question ID</th>
+                        <th>Question Statement</th>
+                        <th>Options</th>
+                        {% if 'admin' in session.get('user_name', None) %}
+                        <th>Actions</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for question in questions %}
+                    <tr>
+                        <td>{{ question.ques_id }}</td>
+                        <td>{{ question.ques_statment }}</td>
+                        <td>
+                            {% if 'admin' not in session.get('user_name', None) %}
+                            <!-- User can select an answer -->
+                            <div>
+                                <input type="radio" name="answer_{{ question.ques_id }}" value="option1"> {{ question.option1 }}<br>
+                                <input type="radio" name="answer_{{ question.ques_id }}" value="option2"> {{ question.option2 }}<br>
+                                <input type="radio" name="answer_{{ question.ques_id }}" value="option3"> {{ question.option3 }}<br>
+                                <input type="radio" name="answer_{{ question.ques_id }}" value="option4"> {{ question.option4 }}
+                            </div>
+                            {% else %}
+                            <!-- Admin sees the options -->
+                            <ul>
+                                <li>Option 1: {{ question.option1 }}</li>
+                                <li>Option 2: {{ question.option2 }}</li>
+                                <li>Option 3: {{ question.option3 }}</li>
+                                <li>Option 4: {{ question.option4 }}</li>
+                                <li>Correct Option: {{ question.correct_option }}</li>
+                            </ul>
+                            {% endif %}
+                        </td>
+                        {% if 'admin' in session.get('user_name', None) %}
+                        <td>
+                            <a href="{{ url_for('edit_question', ques_id=question.ques_id) }}" class="btn btn-secondary btn-sm mx-1">Edit</a>
+                            <a href="{{ url_for('delete_question', question_id=question.ques_id) }}" class="btn btn-danger btn-sm mx-1">Delete</a>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% if 'admin' in session.get('user_name', None) %} 
+        <div class="text-center mt-3">
+            <a href="{{ url_for('add_question', quiz_id=quiz.quiz_id) }}" class="btn btn-primary btn-lg mb-4">Add Question</a>
+        </div>
+        
+        {%else%}
+        <div 
+        class="text-center mt-4">
+        </div>
+        {% endif %}    
+
+        {% if 'admin' not in session.get('user_name', None) %}
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-success btn-sm">Submit Answers</button>
+        </div>
+        {% endif %}
+    </form>
+</div>
+
+{% endblock %}

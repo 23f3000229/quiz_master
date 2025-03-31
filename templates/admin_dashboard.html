@@ -1,0 +1,27 @@
+<div class="container mt-3">
+    <h3 class="text-center welcome-title">Welcome to Admin Dashboard</h3>
+    <p class="text-center welcome-subtitle">Choose an option to manage the application</p>
+
+    <div class="row justify-content-center mt-4">
+        <!-- Card for Manage Quiz Content -->
+        <div class="card col-3 m-3 text-center d-flex flex-column" 
+        style="border-radius: 10px; height: 290px; padding: 20px;">
+            <h5 class="card-title mb-3">Manage Quiz Content</h5>
+            <p class="card-text">Add, edit, or delete subjects, chapters, and quizzes.</p>
+            <div class="mt-auto">
+                <a href="{{ url_for('manage_quiz') }}" class="btn btn-primary">Go to Quiz Management</a>
+            </div>
+        </div>
+
+        <!-- Card for Manage Users -->
+        <div class="card col-3 m-3 text-center d-flex flex-column" 
+        style="border-radius: 10px; height: 290px; padding: 20px;">
+            <h5 class="card-title mb-3">Manage Users</h5>
+            <p class="card-text">View and manage user details.</p>
+            <div class="mt-auto">
+                <a href="{{ url_for('manage_users') }}" class="btn btn-primary">Go to User Management</a>
+            </div>
+        </div>
+    </div>
+</div>
+

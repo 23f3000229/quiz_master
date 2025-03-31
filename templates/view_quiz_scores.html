@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="table-container">
+    <h2 class="table-title">Scores for Quiz: {{ quiz.quiz_name }}</h2>
+    <p class="text-center">Date: {{ quiz.date_of_quiz.strftime('%Y-%m-%d') }}</p>
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>User Name</th>
+                <th>Correct Answers</th>
+                <th>Total Questions</th>
+                <th>Score</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if attempts %}
+                {% for attempt in attempts %}
+                <tr>
+                    <td>{{ attempt.user_name }}</td>
+                    <td>{{ attempt.score }}</td>
+                    <td>{{ attempt.total_score }}</td>
+                    <td>{{ attempt.score }}/{{ attempt.total_score }}</td>
+                    <td>{{ attempt.attempt_date.strftime('%Y-%m-%d') }}</td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="5" class="text-center">No attempts found for this quiz.</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

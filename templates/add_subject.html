@@ -1,0 +1,26 @@
+{% extends 'base.html'%}
+{% block title%} Add Subject - Quiz_Master {%endblock%}
+{% block content %}
+
+<div class="container-fluid row justify-content-center mt-5" <p> Add Subject </p>
+    
+    <form class="col-6" action={{url_for('add_subject')}} method="POST" >
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Add Subject</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="" name="subject_name" autocomplete="on">
+        </div>
+        
+        <div class="mb-3">
+            <label for="inputPassword5" class="form-label">Description</label>
+            <input type="text" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock" name="subject_description">
+        </div>
+        
+        <div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

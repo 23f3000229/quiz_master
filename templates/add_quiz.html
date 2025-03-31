@@ -1,0 +1,44 @@
+{% extends 'base.html'%}
+{% block title%} Add Quiz - Quiz_Master {%endblock%}
+{% block content %}
+
+<div class="container-fluid row justify-content-center mt-5"<p> Add Quiz </p>
+    
+    <form class="col-6" action="{{ url_for('add_quiz') }}" method="POST">
+        <div class="mb-3">
+            <label for="chapter_id" class="form-label">Chapter</label>
+            <select class="form-control" id="chapter_id" name="chapter_id">
+                <option selected>Choose...</option>
+                {% for chapter in all_chapters %}
+                <option value="{{ chapter.chap_id }}">{{ chapter.chap_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="quiz_name" class="form-label">Quiz Name</label>
+            <input type="text" class="form-control" id="quiz_name" name="quiz_name">
+        </div>
+
+        <div class="mb-3">
+            <label for="date_of_quiz" class="form-label">Date of Quiz</label>
+            <input type="date" class="form-control" id="date_of_quiz" name="date_of_quiz">
+        </div>
+        
+        <div class="mb-3">
+            <label for="time_duration" class="form-label">Time Duration</label>
+            <input type="text" class="form-control" id="time_duration" name="time_duration">
+        </div>
+        
+        <div class="mb-3">
+            <label for="remarks" class="form-label">Remarks</label>
+            <input type="text" class="form-control" id="remarks" name="remarks">
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-primary">Add Quiz</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

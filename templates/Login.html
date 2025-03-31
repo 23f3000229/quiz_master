@@ -1,0 +1,29 @@
+{% extends 'base.html'%}
+{% block title%} Login - Quiz_Master {%endblock%}
+{% block content %}
+
+<div class="container-fluid row justify-content-center mt-5">
+    <div class="card col-4 p-4 d-flex flex-column justify-content-between mb-4" style="background-color: rgba(0, 0, 0, 0.0); color: white; border-radius: 10px; height: 500px;">
+        <h2 class="text-center">Login</h2>
+        
+        <form action="/login" method="POST" class="flex-grow-1 d-flex flex-column justify-content-between">
+            <div>
+                <div class="m-3">
+                    <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" name="email" autocomplete="on">
+                </div>
+                
+                <div class="m-3">
+                    <label for="inputPassword5" class="form-label">Password</label>
+                    <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock" name="password">
+                </div>
+            </div>
+            
+            <div>
+                <button type="submit" class="btn btn-primary w-100">Login</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

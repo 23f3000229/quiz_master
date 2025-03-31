@@ -1,0 +1,72 @@
+{% extends 'base.html'%}
+{% block title%} Register - Quiz_Master {%endblock%}
+{% block content %}
+
+<div class="container-fluid row justify-content-center mt-5">
+    <div class="card col-4 p-4 d-flex flex-column justify-content-between" style="background-color: rgba(0, 0, 0, 0.0); color: white; border-radius: 10px; min-height: 500px;">
+        <h2 class="text-center mb-4">Register Here</h2>
+        
+        <form action="/register" method="POST" class="flex-grow-1 d-flex flex-column justify-content-between">
+            <div class="overflow-auto" style="max-height: 400px;">
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="name" name="user_name">
+                </div>
+
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" name="user_email">
+                </div>
+
+                <div class="mb-3">
+                    <label for="inputPassword5" class="form-label">Password</label>
+                    <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock" name="user_passw">
+                    <div id="passwordHelpBlock" class="form-text" style="color: rgb(235, 231, 231);">
+                        Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="inputPassword" class="form-label">Confirm Password</label>
+                    <input type="password" id="inputPassword" class="form-control" aria-describedby="passwordHelpBlock" name="confirm_password">
+                </div>
+
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Date of Birth</label>
+                    <input type="date" class="form-control" id="exampleFormControlInput1" name="user_dob">
+                </div>
+
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Qualification</label>
+                    <div class="d-flex">
+                        <div class="form-check form-check-inline me-3">
+                            <input class="form-check-input" type="radio" name="qualification" id="graduate" value="graduate" aria-label="Radio button for Graduate">
+                            <label class="form-check-label" for="graduate">Graduate</label>
+                        </div>
+
+                        <div class="form-check form-check-inline me-3">
+                            <input class="form-check-input" type="radio" name="qualification" id="postgraduate" value="postgraduate" aria-label="Radio button for Postgraduate">
+                            <label class="form-check-label" for="postgraduate">Postgraduate</label>
+                        </div>
+
+                        <div class="form-check form-check-inline me-3">
+                            <input class="form-check-input" type="radio" name="qualification" id="undergraduate" value="undergraduate" aria-label="Radio button for Undergraduate">
+                            <label class="form-check-label" for="undergraduate">Undergraduate</label>
+                        </div>
+
+                        <div class="form-check form-check-inline me-3">
+                            <input class="form-check-input" type="radio" name="qualification" id="other" value="other" aria-label="Radio button for Other">
+                            <label class="form-check-label" for="other">Other</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div>
+                <button type="submit" class="btn btn-primary w-100">Register</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

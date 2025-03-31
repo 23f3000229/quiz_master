@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="table-container">
+    <h2 class="table-title">Scores for {{ user.user_name }}</h2>
+    <p class="text-center">Email: {{ user.user_email }}</p>
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>Quiz Name</th>
+                <th>Correct Answers</th>
+                <th>Total Questions</th>
+                <th>Score</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if attempts %}
+                {% for attempt in attempts %}
+                <tr>
+                    <td>{{ attempt.quiz_name }}</td>
+                    <td>{{ attempt.score }}</td>
+                    <td>{{ attempt.total_score }}</td>
+                    <td>{{ attempt.score }}/{{ attempt.total_score }}</td>
+                    <td>{{ attempt.attempt_date.strftime('%Y-%m-%d') }}</td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="5" class="text-center">No quiz attempts found for this user.</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

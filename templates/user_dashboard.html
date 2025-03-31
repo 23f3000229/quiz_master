@@ -1,0 +1,30 @@
+
+<div class="container mt-3">
+    <h3 class="text-center welcome-title">Welcome to Quiz Master</h3>
+    <p class="text-center welcome-subtitle">Hello {{session.get('user_name')}}, Nice to see you again!</p>
+
+    <div class="row justify-content-center mt-4">
+        <!-- Card for Manage Quiz Content -->
+        <div class="card col-3 m-3 text-center d-flex flex-column" 
+        style="border-radius: 10px; height: 290px; padding: 20px;">
+            <h5 class="card-title mb-3">Explore Quizzes</h5>
+            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+            <div class="mt-auto">
+                <a href="{{ url_for('explore_quizzes') }}" class="btn btn-info btn mx-1">Go to Quizzes Section</a>
+            </div>
+        </div>
+
+        <!-- Card for Manage Users -->
+        <div class="card col-3 m-3 text-center d-flex flex-column" 
+        style="border-radius: 10px; height: 290px; padding: 20px;">
+            <h5 class="card-title mb-3">Score Data</h5>
+            <p class="card-text">Check your previous quizzes scores with visualization.</p>
+            <div class="mt-auto">
+                <div class="text-center mt-4">
+                    <a href="{{ url_for('user_scores') }}" class="btn btn-info btn mx-1">View My Scores</a>
+                </div>            
+            </div>
+        </div>
+    </div>
+</div>
+

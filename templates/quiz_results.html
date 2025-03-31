@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Quiz Results: {{ quiz.quiz_name }}</h2>
+    <p class="text-center">You scored <strong>{{ score }}/{{ total_score }}</strong></p>
+
+    <div class="quiz-feedback mt-4">
+        <h3>Question Feedback</h3>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Question</th>
+                    <th>Your Answer</th>
+                    <th>Correct Answer</th>
+                    <th>Result</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in feedback %}
+                <tr>
+                    <td>{{ item.question }}</td>
+                    <td>{{ item.submitted_answer }}</td>
+                    <td>{{ item.correct_answer }}</td>
+                    <td>
+                        {% if item.is_correct %}
+                        <span class="text-success">Correct</span>
+                        {% else %}
+                        <span class="text-danger">Incorrect</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="quiz-summary mt-5">
+        <h3>Quiz Summary</h3>
+        <p><strong>Quiz Name:</strong> {{ quiz.quiz_name }}</p>
+        <p><strong>Total Questions:</strong> {{ total_score }}</p>
+        <p><strong>Correct Answers:</strong> {{ score }}</p>
+        <p><strong>Incorrect Answers:</strong> {{ total_score - score }}</p>
+        <p><strong>Date:</strong> {{ quiz.date_of_quiz.strftime('%Y-%m-%d') }}</p>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="{{ url_for('home') }}" class="btn btn-primary">Return to Dashboard</a>
+    </div>
+</div>
+{% endblock %}

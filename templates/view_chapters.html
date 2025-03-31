@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Chapters for Subject: {{ subject.subj_name }}</h2>
+    <ul class="list-group mt-4">
+        {% for chapter in chapters %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ chapter.chap_name }}
+            <a href="{{ url_for('quizzes', chapter_id=chapter.chap_id) }}" class="btn btn-primary btn-sm">View Quizzes</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

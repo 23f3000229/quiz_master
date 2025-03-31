@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title%} Home - Quiz_Master {%endblock%}
+
+{% block content %}
+<div class="container-fluid row justify-content-center mt-2 ">
+    {% if not session.get('user_email',None)%}
+        <h1>Sign up or login to start playing</h1>
+    {% else %}
+        {% if 'admin' in session.get('user_name', None) %} 
+            {% include "admin_dashboard.html" %}
+        
+        {%else%}
+            {% include "user_dashboard.html" %}
+        {% endif %}
+        
+    {% endif %}
+</div>
+{% endblock %}
