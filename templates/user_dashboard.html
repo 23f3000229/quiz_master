@@ -14,14 +14,16 @@
             </div>
         </div>
 
-        <!-- Card for Manage Users -->
+        <!-- Card for View scores -->
         <div class="card col-3 m-3 text-center d-flex flex-column" 
         style="border-radius: 10px; height: 290px; padding: 20px;">
             <h5 class="card-title mb-3">Score Data</h5>
             <p class="card-text">Check your previous quizzes scores with visualization.</p>
             <div class="mt-auto">
                 <div class="text-center mt-4">
-                    <a href="{{ url_for('user_scores') }}" class="btn btn-info btn mx-1">View My Scores</a>
+                    <a href="{{ url_for('user_summary') }}" class="btn btn-info btn mx-1">Performance Overview</a>
+
+                    <a href="{{ url_for('user_scores') }}" class="btn btn-info btn mx-1">View Scores</a>
                 </div>            
             </div>
         </div>

@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% block title %} User Summary - Quiz Master {% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h3 class="text-center"> Performance Overview </h3>
+    <div class="row mt-4">
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5>Total Quizzes Attempted</h5>
+                    <p>{{ total_quizzes_attempted }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5>Average Score</h5>
+                    <p>{{ average_score }}%</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5>Rank</h5>
+                    <p>{{ user_rank if user_rank else 'N/A' }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5>Overall Average Score</h5>
+                    <p>{{ overall_avg_score }}%</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5>Best Quiz Performance</h5>
+                    {% if best_quiz %}
+                        <p>{{ best_quiz.quiz_name }}</p>
+                        <small>Score: {{ best_quiz.score }}/{{ best_quiz.total_score }}</small>
+                    {% else %}
+                        <p>N/A</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5>Worst Quiz Performance</h5>
+                    {% if worst_quiz %}
+                        <p>{{ worst_quiz.quiz_name }}</p>
+                        <small>Score: {{ worst_quiz.score }}/{{ worst_quiz.total_score }}</small>
+                    {% else %}
+                        <p>N/A</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5>Top User</h5>
+                    {% if top_user %}
+                        <p>{{ top_user.user_name }}</p>
+                        <small>Avg Score: {{ top_user.avg_score|round(2) }}%</small>
+                    {% else %}
+                        <p>N/A</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5>Lowest User</h5>
+                    {% if lowest_user %}
+                        <p>{{ lowest_user.user_name }}</p>
+                        <small>Avg Score: {{ lowest_user.avg_score|round(2) }}%</small>
+                    {% else %}
+                        <p>N/A</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="text-center">Quiz Attempts</h5>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Quiz Name</th>
+                                <th>Score</th>
+                                <th>Total Score</th>
+                                <th>Attempt Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for attempt in attempts %}
+                            <tr>
+                                <td>{{ attempt.quiz_name }}</td>
+                                <td>{{ attempt.score }}</td>
+                                <td>{{ attempt.total_score }}</td>
+                                <td>{{ attempt.attempt_date.strftime('%Y-%m-%d') }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

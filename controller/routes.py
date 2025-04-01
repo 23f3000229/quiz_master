@@ -5,6 +5,7 @@ from controller.Models import *
 from datetime import datetime
 from controller.Models import Ques, Quiz, Chapter, Subject, User
 
+
 @app.route('/')
 def home():
     if 'user_email' in session:
@@ -891,37 +892,152 @@ def view_chapters(subject_id):
 
     return render_template('view_chapters.html', subject=subject, chapters=chapters)
 
-@app.route('/search', methods=['GET', 'POST'])
+@app.route('/search', methods=['GET'])
 def search():
-    if 'user_email' not in session:
-        flash('You need to log in to perform a search!')
-        return redirect(url_for('login'))
-
     query = request.args.get('query', '').strip()
-    search_type = request.args.get('type', '').strip()  # e.g., 'subjects', 'quizzes'
-
     if not query:
-        flash('Please enter a search term!')
+        flash('Please enter a search term.')
         return redirect(url_for('home'))
 
-    results = []
+    # Search for subjects, chapters, and quizzes
+    subjects = Subject.query.filter(Subject.subj_name.ilike(f"%{query}%")).all()
+    chapters = Chapter.query.filter(Chapter.chap_name.ilike(f"%{query}%")).all()
+    quizzes = Quiz.query.filter(Quiz.quiz_name.ilike(f"%{query}%")).all()
 
-    # Admin-specific searches
-    if 'admin' in session.get('user_name', None):
-        if search_type == 'users':
-            results = User.query.filter(User.user_name.ilike(f'%{query}%') | User.user_email.ilike(f'%{query}%')).all()
-        elif search_type == 'subjects':
-            results = Subject.query.filter(Subject.subj_name.ilike(f'%{query}%')).all()
-        elif search_type == 'quizzes':
-            results = Quiz.query.filter(Quiz.quiz_name.ilike(f'%{query}%')).all()
-        elif search_type == 'questions':
-            results = Ques.query.filter(Ques.ques_statment.ilike(f'%{query}%')).all()
+    # Check if the user is an admin before searching for users
+    users = []
+    if 'admin' in session.get('user_name', '').lower():
+        users = User.query.filter(
+            (User.user_name.ilike(f"%{query}%")) | (User.user_email.ilike(f"%{query}%"))
+        ).all()
 
-    # User-specific searches
-    else:
-        if search_type == 'subjects':
-            results = Subject.query.filter(Subject.subj_name.ilike(f'%{query}%')).all()
-        elif search_type == 'quizzes':
-            results = Quiz.query.filter(Quiz.quiz_name.ilike(f'%{query}%')).all()
+    return render_template(
+        'search_results.html',
+        query=query,
+        subjects=subjects,
+        chapters=chapters,
+        quizzes=quizzes,
+        users=users
+    )
+@app.route('/subject/<int:subject_id>')
+def view_subject(subject_id):
+    subject = Subject.query.get_or_404(subject_id)
+    chapters = Chapter.query.filter_by(subj_id=subject_id).all()
+    return render_template('view_item.html', context='subject', subject=subject, chapters=chapters)
 
-    return
+@app.route('/chapter/<int:chapter_id>')
+def view_chapter(chapter_id):
+    chapter = Chapter.query.get_or_404(chapter_id)
+    quizzes = Quiz.query.filter_by(chapter_id=chapter_id).all()
+    return render_template('view_item.html', context='chapter', chapter=chapter, quizzes=quizzes)
+
+@app.route('/quiz/<int:quiz_id>')
+def view_quiz(quiz_id):
+    quiz = Quiz.query.get_or_404(quiz_id)
+    return render_template('view_item.html', context='quiz', quiz=quiz)
+
+
+@app.route('/admin_summary')
+def admin_summary():
+    if 'admin' not in session.get('user_name', '').lower():
+        flash('You are not authorized to view this page!')
+        return redirect(url_for('home'))
+
+    # Basic statistics
+    total_users = User.query.count()
+    active_users = User.query.filter_by(user_status='active').count()
+    inactive_users = User.query.filter_by(user_status='inactive').count()
+    total_quizzes = Quiz.query.count()
+    avg_quiz_score = db.session.query(db.func.avg(QuizAttempt.score)).scalar()
+
+    # Additional insights
+    total_quiz_attempts = QuizAttempt.query.count()
+    top_quiz = (
+        db.session.query(Quiz.quiz_name, Chapter.chap_name, db.func.avg(QuizAttempt.score).label('avg_score'))
+        .join(QuizAttempt, Quiz.quiz_id == QuizAttempt.quiz_id)
+        .join(Chapter, Quiz.chapter_id == Chapter.chap_id)
+        .group_by(Quiz.quiz_id, Chapter.chap_name)
+        .order_by(db.desc('avg_score'))
+        .first()
+    )
+    most_active_user = (
+        db.session.query(User.user_name, db.func.count(QuizAttempt.attempt_id).label('attempt_count'))
+        .join(QuizAttempt, User.user_id == QuizAttempt.user_id)
+        .group_by(User.user_id)
+        .order_by(db.desc('attempt_count'))
+        .first()
+    )
+    inactive_users_percentage = (inactive_users / total_users * 100) if total_users > 0 else 0
+    avg_quizzes_per_user = (total_quiz_attempts / total_users) if total_users > 0 else 0
+
+    return render_template(
+        'admin_summary.html',
+        total_users=total_users,
+        active_users=active_users,
+        inactive_users=inactive_users,
+        total_quizzes=total_quizzes,
+        avg_quiz_score=round(avg_quiz_score, 2) if avg_quiz_score else 0,
+        total_quiz_attempts=total_quiz_attempts,
+        top_quiz=top_quiz,
+        most_active_user=most_active_user,
+        inactive_users_percentage=round(inactive_users_percentage, 2),
+        avg_quizzes_per_user=round(avg_quizzes_per_user, 2)
+    )
+
+@app.route('/user_summary')
+def user_summary():
+    if 'user_email' not in session:
+        flash('You need to log in to view your progress!')
+        return redirect(url_for('login'))
+
+    # Fetch the logged-in user
+    user = User.query.filter_by(user_email=session['user_email']).first()
+
+    # Fetch all quiz attempts for the user
+    attempts = QuizAttempt.query.filter_by(user_id=user.user_id).join(Quiz, QuizAttempt.quiz_id == Quiz.quiz_id) \
+                                .add_columns(
+                                    Quiz.quiz_name,
+                                    QuizAttempt.score,
+                                    QuizAttempt.total_score,
+                                    QuizAttempt.attempt_date
+                                ).all()
+
+    # Calculate user's insights
+    total_quizzes_attempted = len(attempts)
+    total_score = sum(attempt.score for attempt in attempts)
+    total_possible_score = sum(attempt.total_score for attempt in attempts)
+    average_score = (total_score / total_possible_score * 100) if total_possible_score > 0 else 0
+
+    best_quiz = max(attempts, key=lambda x: x.score / x.total_score if x.total_score > 0 else 0, default=None)
+    worst_quiz = min(attempts, key=lambda x: x.score / x.total_score if x.total_score > 0 else 0, default=None)
+
+    # Comparison metrics
+    all_users = (
+        db.session.query(User.user_name, db.func.avg(QuizAttempt.score / QuizAttempt.total_score * 100).label('avg_score'))
+        .join(QuizAttempt, User.user_id == QuizAttempt.user_id)
+        .group_by(User.user_id)
+        .all()
+    )
+    all_users_sorted = sorted(all_users, key=lambda x: x.avg_score if x.avg_score else 0, reverse=True)
+    user_rank = next((index + 1 for index, u in enumerate(all_users_sorted) if u.user_name == user.user_name), None)
+    overall_avg_score = sum(u.avg_score for u in all_users if u.avg_score) / len(all_users) if all_users else 0
+    top_user = max(all_users, key=lambda x: x.avg_score if x.avg_score else 0, default=None)
+    lowest_user = min(all_users, key=lambda x: x.avg_score if x.avg_score else 0, default=None)
+
+    return render_template(
+        'user_summary.html',
+        user=user,
+        total_quizzes_attempted=total_quizzes_attempted,
+        average_score=round(average_score, 2),
+        best_quiz=best_quiz,
+        worst_quiz=worst_quiz,
+        attempts=attempts,
+        user_rank=user_rank,
+        overall_avg_score=round(overall_avg_score, 2),
+        top_user=top_user,
+        lowest_user=lowest_user
+    )
+
+
+
+

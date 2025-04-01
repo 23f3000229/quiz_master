@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block title %} Admin Summary - Quiz Master {% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h3 class="text-center">Admin Summary</h3>
+    <div class="row mt-4">
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5>Total Users</h5>
+                    <p>{{ total_users }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5>Active Users</h5>
+                    <p>{{ active_users }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5>Inactive Users</h5>
+                    <p>{{ inactive_users }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5>Total Quizzes</h5>
+                    <p>{{ total_quizzes }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5>Total Quiz Attempts</h5>
+                    <p>{{ total_quiz_attempts }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5>Top Performing Quiz</h5>
+                    <p>
+                        {{ top_quiz[0] if top_quiz else 'N/A' }} 
+                        <small>({{ top_quiz[1] if top_quiz else 'N/A' }})</small>
+                    </p>
+                    <small>Avg Score: {{ top_quiz[2]|round(2) if top_quiz else 'N/A' }}</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5>Most Active User</h5>
+                    <p>{{ most_active_user[0] if most_active_user else 'N/A' }}</p>
+                    <small>Attempts: {{ most_active_user[1] if most_active_user else 'N/A' }}</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5>Inactive Users (%)</h5>
+                    <p>{{ inactive_users_percentage }}%</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5>Average Quizzes Per User</h5>
+                    <p>{{ avg_quizzes_per_user }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
